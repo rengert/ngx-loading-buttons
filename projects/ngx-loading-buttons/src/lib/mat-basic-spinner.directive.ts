@@ -1,29 +1,19 @@
-import { Directive, ElementRef, HostBinding, Input } from '@angular/core';
+import {Directive, effect, ElementRef, input} from '@angular/core';
 
 @Directive({
   selector: '[mtBasicSpinner]',
-  standalone: true,
+  host: {
+    '[class.mat-spinner]': 'mtBasicSpinner()',
+    '[class.hide-btn-text]': 'hideText() && mtBasicSpinner()',
+  },
 })
 export class MatBasicSpinnerDirective {
-  @Input() hideText = false
-  @Input() set mtBasicSpinner(loading: boolean) {
-    this.loading = loading
-    if (this.hideText) this.textHidden = loading
+  readonly hideText = input(false);
+  readonly mtBasicSpinner = input.required<boolean>();
 
-    this.elem.nativeElement.disabled = loading;
-  }
-
-  @HostBinding('class.mat-spinner')
-  loading = false
-
-  @HostBinding('class.hide-btn-text')
-  textHidden = false
-
-  @HostBinding('disabled')
-  get disabled(): boolean {
-    return this.mtBasicSpinner;
-  }
-
-  constructor(private readonly elem: ElementRef<HTMLButtonElement>) {
+  constructor(elem: ElementRef<HTMLButtonElement>) {
+    effect(() => {
+      elem.nativeElement.disabled = this.mtBasicSpinner();
+    });
   }
 }
