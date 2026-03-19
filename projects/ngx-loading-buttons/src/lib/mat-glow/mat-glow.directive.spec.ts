@@ -19,12 +19,13 @@ describe('MatGlowDirective', () => {
   })
 
   it('should create an instance', () => {
-    const directive = new MatGlowDirective();
+    var element = fixture.debugElement;
+    const directive = new MatGlowDirective(element);
     expect(directive).toBeTruthy();
   });
 
   it('should show glow and text when loading is true', () => {
-    fixture.componentInstance.saving = true;
+    fixture.componentInstance.saving.set(true);
     fixture.detectChanges();
 
     var element: HTMLElement = fixture.nativeElement.querySelector("#glowWithText");
@@ -32,7 +33,7 @@ describe('MatGlowDirective', () => {
   });
 
   it('should show glow and hide text when loading is true', () => {
-    fixture.componentInstance.saving = true;
+    fixture.componentInstance.saving.set(true);
     fixture.detectChanges();
 
     var element: HTMLElement = fixture.nativeElement.querySelector("#glowWithoutText");
