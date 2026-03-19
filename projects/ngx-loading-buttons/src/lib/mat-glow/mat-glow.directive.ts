@@ -1,18 +1,19 @@
-import { Directive, HostBinding, Input } from '@angular/core';
+import { Directive, HostBinding, Input, input } from '@angular/core';
 
 @Directive({ selector: '[mtGlow]',})
 export class MatGlowDirective {
-  @Input() glowColor: string = "blue";
-  @Input() mtGlow = false;
-  @Input() hideText = false;
+  readonly glowColor = input<string>("blue");
+  readonly mtGlow = input(false);
+  readonly hideText = input(false);
 
   @Input("class")
   @HostBinding('class')
   get elementClass(): string {
-    document.documentElement.style.setProperty('--glow-color', this.glowColor);
-    if (this.mtGlow && this.hideText) {
+    document.documentElement.style.setProperty('--glow-color', this.glowColor());
+    const mtGlow = this.mtGlow();
+    if (mtGlow && this.hideText()) {
       return 'mat-glow hide-btn-text';
-    } else if (this.mtGlow) {
+    } else if (mtGlow) {
       return 'mat-glow';
     }
     return '';
@@ -20,6 +21,6 @@ export class MatGlowDirective {
 
   @HostBinding('disabled')
   get disabled(): boolean {
-    return this.mtGlow;
+    return this.mtGlow();
   }
 }

@@ -1,11 +1,11 @@
-import { Directive, ElementRef, HostBinding, Input } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input, input } from '@angular/core';
 
 @Directive({ selector: '[mtBasicSpinner]' })
 export class MatBasicSpinnerDirective {
-  @Input() hideText = false
+  readonly hideText = input(false);
   @Input() set mtBasicSpinner(loading: boolean) {
     this.loading = loading
-    if (this.hideText) this.textHidden = loading
+    if (this.hideText()) this.textHidden = loading
 
     this.elem.nativeElement.disabled = loading;
   }
