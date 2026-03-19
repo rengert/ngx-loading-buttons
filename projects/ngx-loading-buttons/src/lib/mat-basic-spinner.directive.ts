@@ -1,9 +1,6 @@
 import { Directive, ElementRef, HostBinding, Input } from '@angular/core';
 
-@Directive({
-  selector: '[mtBasicSpinner]',
-  standalone: true,
-})
+@Directive({ selector: '[mtBasicSpinner]' })
 export class MatBasicSpinnerDirective {
   @Input() hideText = false
   @Input() set mtBasicSpinner(loading: boolean) {

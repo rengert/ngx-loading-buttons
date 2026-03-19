@@ -1,11 +1,7 @@
 import { Directive, HostBinding, Input } from '@angular/core';
 
-@Directive({
-  selector: '[mtGlow]',
-  standalone: true,
-})
+@Directive({ selector: '[mtGlow]',})
 export class MatGlowDirective {
-
   @Input() glowColor: string = "blue";
   @Input() mtGlow = false;
   @Input() hideText = false;
